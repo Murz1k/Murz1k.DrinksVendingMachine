@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Пользовательский режим";
+}
+@section Scripts
+{
+    <script src="~/Controllers/MachineController.js"></script>
+}
+
+<div ng-app="app">
+    <div ng-controller="MachineController" ng-init="load()">
+        <div id="beveragesButtons" class="btn-group col-md-8" style="height: 550px; border: 1px solid grey; margin: 10px; padding:0px;">
+            <button id="{{beverage.Id}}" ng-click="buyBeverage(beverage.Id,beverage.Price)" value="{{beverage.Price}}" ng-repeat="beverage in beverages" class="btn btn-default" style="padding: 0px; margin:4px;" onmouseover="play()" ng-disabled="beverage.Price>totalMoney || beverage.Count <=0">
+                <img src={{beverage.ImagePath}} style="width: 100px; height: 100px;" />
+            </button>
+        </div>
+        <form class="col-md-3" style="height: 550px; border: 1px solid grey; margin: 10px; text-align:center;">
+            <div id="coinsButtons" class="btn-group" style="height:450px;">
+                <button ng-repeat="coin in coins" ng-click="addCoin(coin.Value)" ng-disabled="coin.IsLocked" class="btn btn-default" style="height: 70px; margin:4px; width: 70px; font-size: 24px">
+                    {{coin.Value}}
+                </button>
+            </div>
+            <p>Всего: {{totalMoney}}</p>
+            <button id="giveMoney" ng-click="giveMoney()" class="btn btn-default" style="font-size: 14px;">Получить сдачу</button>
+        </form>
+        <div id="allItems" class="btn-group"></div>
+    </div>
+</div>
+<audio id="audio" src=".\Content/Audio/export.wav" />

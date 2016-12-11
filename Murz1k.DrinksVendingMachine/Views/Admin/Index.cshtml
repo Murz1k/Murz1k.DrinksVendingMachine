@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Панель администратора";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts
+{
+    <script src="~/Controllers/AdminController.js"></script>
+}
+<div class="container" ng-app="app">
+    <div ng-controller="AdminController" ng-init="load()" id="controller">
+        <div style="border: 1px solid grey; margin: 15px;" class="col-sm-2 img-rounded">
+            <form class="form-horizontal" style="padding: 10px; height:550px;">
+                <div id="coinsButtons" class="btn-group" style="height: 150px; overflow-y: scroll; position: relative;">
+                    <button ng-repeat="coin in coins" ng-click="chooseCoin(coin)" class="btn btn-default" style="height:50px; width:50px; margin:5px;">
+                        {{coin.Value}}
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label for="Title">Номинал</label>
+                    <input id="Title" class="form-control" type="text" placeholder="Введите номинал" ng-model="currentCoin.Value" />
+                </div>
+                <div class="form-group">
+                    <label for="Price">Количество</label>
+                    <input id="Price" class="form-control" type="text" placeholder="Введите количество" ng-model="currentCoin.Count" />
+                </div>
+                <div class="form-group">
+                    <label for="Count">Заблокирована</label>
+                    <input id="Count" class="form-control" type="checkbox" ng-model="currentCoin.IsLocked" />
+                </div>
+                <button class="btn btn-default form-control" id="addCoin" ng-click="addCoin()">Добавить</button>
+                <button class="btn btn-default form-control" id="addCoin" ng-click="clearCoin()">Очистить</button>
+                <button class="btn btn-default form-control" id="editCoin" ng-click="editCoin()">Изменить</button>
+                <button class="btn btn-default form-control" id="deleteCoin" ng-click="deleteCoin()">Удалить</button>
+            </form>
+        </div>
+        <div id="beveragesButtons" class="btn-group col-sm-7 img-rounded" style="height:550px; border: 1px solid grey; margin: 15px;">
+            <button id="{{beverage.Id}}" ng-click="chooseBeverage(beverage)" ng-repeat="beverage in beverages" class="btn btn-default" style="padding: 0px; margin: 5px; margin-top:10px;">
+                <img src={{beverage.ImagePath}} style="width: 80px; height: 80px;" />
+            </button>
+        </div>
+        <div style="border: 1px solid grey; margin: 15px; height:550px;" class="col-sm-2 img-rounded">
+            <form class="form-horizontal" style="padding: 5px;">
+                <img class="img-rounded" id="image" src="{{currentBeverage.ImagePath}}" ondrop="angular.element(this).scope().fileSelect(this)" ondragover="angular.element(this).scope().dragOver(this)" style="width: 150px; height: 150px; text-align:center; margin-top:10px; margin-bottom:10px;">
+                <input type="file" id="file" class="btn btn-default form-control" onchange="angular.element(this).scope().loadImage(this)" />
+                <div class="form-group">
+                    <label for="Title">Название</label>
+                    <input id="Title" class="form-control" type="text" placeholder="Введите название" ng-model="currentBeverage.Title"/>
+                </div>
+                <div class="form-group">
+                    <label for="Price">Цена</label>
+                    <input id="Price" class="form-control" type="text" placeholder="Введите цену" ng-model="currentBeverage.Price" />
+                </div>
+                <div class="form-group">
+                    <label for="Count">Количество</label>
+                    <input id="Count" class="form-control" type="text" placeholder="Введите количество" ng-model="currentBeverage.Count" />
+                </div>
+
+                <div class="form-group form-inline">
+                    <button class="btn btn-default form-control" id="addButton" ng-click="addBeverage()">Добавить</button>
+                    <button class="btn btn-default form-control" id="clearButton" ng-click="clear()">Очистить</button>
+                </div>
+                <div class="form-group form-inline">
+                    <button class="btn btn-default form-control" id="editButton" ng-click="editBeverage()">Изменить</button>
+                    <button class="btn btn-default form-control" id="deleteButton" ng-click="deleteBeverage()">Удалить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
