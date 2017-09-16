@@ -25,7 +25,7 @@ app.controller("MachineController", function ($scope) {
             success: function (beverages) {
                 $scope.beverages = beverages;
                 $.ajax({
-                    url: "/Admin/GetAllCoins",
+                    url: "/Home/GetAllCoins",
                     type: "post",
                     dataType: "json",
                     contentType: "application/json",

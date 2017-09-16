@@ -13,10 +13,6 @@ namespace Murz1k.DrinksVendingMachine
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            //routes.IgnoreRoute("Admin/Index");
-            //routes.IgnoreRoute("Admin");
-            routes.IgnoreRoute("Home/Index");
-
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{secretKey}",

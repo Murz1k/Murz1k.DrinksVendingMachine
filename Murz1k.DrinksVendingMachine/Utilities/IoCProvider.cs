@@ -15,9 +15,31 @@ namespace Murz1k.DrinksVendingMachine.Utilities
             _objectsDictionary.Add(typeof(TType), newObject);
         }
 
-        public static TType GetComponent<TType>() where TType: class
+        public static TType GetComponent<TType>() where TType : class
         {
             return (TType)_objectsDictionary[typeof(TType)];
+        }
+
+        private static object locker = new object();
+
+        private static DateTime timeSession = DateTime.MaxValue;
+
+        public static DateTime TimeSession
+        {
+            get
+            {
+                lock (locker)
+                {
+                    return timeSession;
+                }
+            }
+            set
+            {
+                lock (locker)
+                {
+                    timeSession = value;
+                }
+            }
         }
     }
 }

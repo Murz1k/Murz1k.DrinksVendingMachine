@@ -207,6 +207,7 @@
     <Compile Include="Services\BeverageService.cs" />
     <Compile Include="Services\CoinService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\AdminAccessAttribute.cs" />
     <Compile Include="Utilities\IoCProvider.cs" />
   </ItemGroup>
   <ItemGroup>

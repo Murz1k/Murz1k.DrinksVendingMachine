@@ -12,10 +12,12 @@ namespace Murz1k.DrinksVendingMachine.Controllers
     public class HomeController : Controller
     {
         private BeverageService _service;
+        private CoinService _coinService;
 
         public HomeController()
         {
             _service = new BeverageService();
+            _coinService = new CoinService();
         }
 
         public ActionResult Index()
@@ -24,19 +26,24 @@ namespace Murz1k.DrinksVendingMachine.Controllers
         }
 
         [HttpPost]
+        public JsonResult GetAllCoins()
+        {
+            return Json(_coinService.GetAllCoins());
+        }
+
+        [HttpPost]
         public JsonResult GetAll()
         {
             return Json(_service.GetAllBeverage());
         }
 
-        [HttpPost]
         public void BuyBeverage(int id)
         {
             var beverage = _service.GetBeverage(id);
             beverage.Count--;
             _service.EditBeverage(id, beverage);
         }
-        [HttpPost]
+
         public void Save()
         {
             _service.SaveData();

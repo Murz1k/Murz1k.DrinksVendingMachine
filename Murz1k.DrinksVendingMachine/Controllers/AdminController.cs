@@ -1,10 +1,13 @@
 ﻿using Murz1k.DrinksVendingMachine.Models;
 using Murz1k.DrinksVendingMachine.Services;
+using Murz1k.DrinksVendingMachine.Utilities;
+using System;
 using System.IO;
 using System.Web.Mvc;
 
 namespace Murz1k.DrinksVendingMachine.Controllers
 {
+    [AdminAccess]
     public class AdminController : Controller
     {
         private BeverageService _service;
@@ -15,9 +18,14 @@ namespace Murz1k.DrinksVendingMachine.Controllers
             _service = new BeverageService();
             _coinService = new CoinService();
         }
-        public ActionResult Index()
+        public ActionResult Index(string secretKey="")
         {
-            return View();
+            if(secretKey=="6396482g35ghlh5gl384")
+            {
+                IoCProvider.TimeSession = DateTime.Now + new TimeSpan(0, 5, 0);
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         public void Add(Beverage beverage)
@@ -37,13 +45,11 @@ namespace Murz1k.DrinksVendingMachine.Controllers
             _service.DeleteBeverage(id);
         }
 
-        //[HttpPost]
         public void AddCoin(Coin coin)
         {
             _coinService.AddCoin(coin);
         }
 
-        //[HttpPost]
         public void EditCoin(int id, Coin coin)
         {
             _coinService.EditCoin(id, coin);
@@ -52,12 +58,6 @@ namespace Murz1k.DrinksVendingMachine.Controllers
         public void DeleteCoin(int id)
         {
             _coinService.DeleteCoin(id);
-        }
-
-        [HttpPost]
-        public JsonResult GetAllCoins()
-        {
-            return Json(_coinService.GetAllCoins());
         }
 
         private void DeleteImage(string path)
